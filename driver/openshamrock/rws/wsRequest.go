@@ -84,7 +84,7 @@ func (w *WsDriver) SendJsonRequest(data []byte, endpoint string) ([]byte, error)
 		return nil, err
 	}
 	log.Log.Debug("[WebSocket] Json请求发送成功")
-	if strings.HasSuffix(w.url, "adapter") {
+	if strings.HasSuffix(w.url, "api") {
 		_, message, err := w.Instance.ReadMessage()
 		if err != nil {
 			return nil, err
@@ -102,7 +102,7 @@ func (w *WsDriver) reConnect() *websocket.Conn {
 	return connection
 }
 func (w *WsDriver) pollingEvents() {
-	if strings.HasSuffix(w.url, "adapter") {
+	if strings.HasSuffix(w.url, "api") {
 		log.Log.Debug("[WebSocket] api接口无需轮询")
 		return
 	}
