@@ -22,6 +22,7 @@ type AdapterClient struct {
 // GetAdapterClient 获取一个适配器客户端
 func GetAdapterClient() *AdapterClient {
 	client := new(AdapterClient)
+
 	return client
 }
 

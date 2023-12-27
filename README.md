@@ -30,13 +30,7 @@ func main() {
 		ad.Message.Plain("测试文本"),
 		ad.Message.Face(123),
 	)
-	messageBody := entity.SendPrivateMessage{
-		UserId:     609923924,
-		Message:    msgList,
-		AutoEscape: false,
-	}
-
-	resp := ad.Api.Message.SendPrivateMessage(messageBody)
+	resp := ad.Api.Message.SendPrivateMessage(00000,false,msgList)
 	pretty, err := formatter.Pretty(resp)
 	if err != nil {
 		return

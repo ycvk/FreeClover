@@ -12,9 +12,13 @@ type Message struct {
 }
 
 // SendPrivateMessage 该接口用于发送私聊消息。
-func (o Message) SendPrivateMessage(message entity.SendPrivateMessage) entity.PrivateMsg {
+func (o Message) SendPrivateMessage(userId int64, autoEscape bool, message []entity.MessageItem) entity.PrivateMsg {
 	endpoint := "send_private_msg"
-	values, err := json.Marshal(message)
+	values, err := json.Marshal(entity.SendPrivateMessage{
+		UserId:     userId,
+		Message:    message,
+		AutoEscape: autoEscape,
+	})
 	if err != nil {
 		return entity.PrivateMsg{}
 	}
@@ -22,9 +26,13 @@ func (o Message) SendPrivateMessage(message entity.SendPrivateMessage) entity.Pr
 }
 
 // SendGroupMessage 该接口用于发送群聊消息。
-func (o Message) SendGroupMessage(message entity.SendGroupMessage) entity.GroupMsg {
+func (o Message) SendGroupMessage(groupId int64, autoEscape bool, message []entity.MessageItem) entity.GroupMsg {
 	endpoint := "send_group_msg"
-	values, err := json.Marshal(message)
+	values, err := json.Marshal(entity.SendGroupMessage{
+		GroupId:    groupId,
+		Message:    message,
+		AutoEscape: autoEscape,
+	})
 	if err != nil {
 		return entity.GroupMsg{}
 	}
@@ -32,9 +40,16 @@ func (o Message) SendGroupMessage(message entity.SendGroupMessage) entity.GroupM
 }
 
 // SendMessage 该接口用于发送消息。
-func (o Message) SendMessage(message entity.SendMessage) entity.SendMessage {
+func (o Message) SendMessage(messageType string, userId int64, groupId int64, discussId int64, autoEscape bool, message []entity.MessageItem) entity.SendMessage {
 	endpoint := "send_msg"
-	values, err := json.Marshal(message)
+	values, err := json.Marshal(entity.SendMessage{
+		MessageType: messageType,
+		UserID:      userId,
+		GroupID:     groupId,
+		DiscussID:   discussId,
+		Message:     message,
+		AutoEscape:  autoEscape,
+	})
 	if err != nil {
 		return entity.SendMessage{}
 	}
@@ -54,9 +69,15 @@ func (o Message) GetMessage(messageId int32) entity.Msg {
 }
 
 // GetHistoryMessage 该接口用于获取历史消息。
-func (o Message) GetHistoryMessage(history entity.MessageHistory) entity.MessageHistory {
+func (o Message) GetHistoryMessage(messageType string, userId int64, groupId int64, count int32, messageSeq int32) entity.MessageHistory {
 	endpoint := "get_history_msg"
-	values, err := json.Marshal(history)
+	values, err := json.Marshal(entity.MessageHistory{
+		MessageType: messageType,
+		UserID:      userId,
+		GroupID:     groupId,
+		Count:       count,
+		MessageSeq:  messageSeq,
+	})
 	if err != nil {
 		return entity.MessageHistory{}
 	}
@@ -104,9 +125,13 @@ func (o Message) GetForwardMessage(id string) entity.ForwardMsg {
 }
 
 // SendGroupForwardMessage 该接口用于发送群聊合并转发。
-func (o Message) SendGroupForwardMessage(forward entity.SendGroupForwardMessage) entity.Common {
+func (o Message) SendGroupForwardMessage(groupId int64, autoEscape bool, message []entity.MessageItem) entity.Common {
 	endpoint := "send_group_forward_msg"
-	values, err := json.Marshal(forward)
+	values, err := json.Marshal(entity.SendGroupMessage{
+		GroupId:    groupId,
+		Message:    message,
+		AutoEscape: autoEscape,
+	})
 	if err != nil {
 		return entity.Common{}
 	}
@@ -114,9 +139,12 @@ func (o Message) SendGroupForwardMessage(forward entity.SendGroupForwardMessage)
 }
 
 // SendPrivateForwardMessage 该接口用于发送私聊合并转发。
-func (o Message) SendPrivateForwardMessage(forward entity.SendPrivateForwardMessage) entity.Common {
+func (o Message) SendPrivateForwardMessage(userId int64, message []entity.MessageItem) entity.Common {
 	endpoint := "send_private_forward_msg"
-	values, err := json.Marshal(forward)
+	values, err := json.Marshal(entity.SendPrivateForwardMessage{
+		UserId:  userId,
+		Message: message,
+	})
 	if err != nil {
 		return entity.Common{}
 	}
