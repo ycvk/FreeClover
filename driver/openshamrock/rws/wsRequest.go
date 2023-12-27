@@ -55,7 +55,7 @@ func (w *WsDriver) SendFormRequest(data url.Values, endpoint string) ([]byte, er
 		return nil, err
 	}
 	log.Log.Debug("[WebSocket] Form请求发送成功")
-	if strings.HasSuffix(w.url, "adapter") {
+	if strings.HasSuffix(w.url, "api") {
 		_, message, err := w.Instance.ReadMessage()
 		if err != nil {
 			return nil, err
