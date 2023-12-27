@@ -44,7 +44,6 @@ func (h *HttpDriver) SendFormRequest(data url.Values, endpoint string) ([]byte, 
 		if err != nil {
 			return nil, err
 		}
-		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 		req.Header.Add("Authorization", "Bearer "+h.authToken)
 		response, err = h.client.Do(req)
 		if err != nil {
@@ -81,7 +80,6 @@ func (h *HttpDriver) SendJsonRequest(data []byte, endpoint string) ([]byte, erro
 		if err != nil {
 			return nil, err
 		}
-		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "Bearer "+h.authToken)
 		response, err = h.client.Do(req)
 		if err != nil {

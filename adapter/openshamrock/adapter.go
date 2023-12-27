@@ -45,12 +45,14 @@ func processJson[T interface{}](endpoint string, data []byte, transceiver driver
 		err  error
 	)
 	if data != nil {
+		log.Log.Debug("有数据请求")
 		resp, err = transceiver.SendJsonRequest(data, endpoint)
 		if err != nil {
 			log.Log.Warning("[ProcessJson] 解析返回值错误")
 			return &a
 		}
 	} else {
+		log.Log.Debug("无数据请求")
 		resp, err = transceiver.SendJsonRequest(nil, endpoint)
 		if err != nil {
 			log.Log.Warning("[ProcessJson] 解析返回值错误")
