@@ -7,6 +7,7 @@ import (
 type Message struct {
 }
 
+// At at消息，接收一个qq号码
 func (m Message) At(qq string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "at",
@@ -14,6 +15,7 @@ func (m Message) At(qq string) entity.MessageItem {
 	}
 }
 
+// AtAll at全体消息
 func (m Message) AtAll() entity.MessageItem {
 	return entity.MessageItem{
 		Type: "at",
@@ -21,6 +23,7 @@ func (m Message) AtAll() entity.MessageItem {
 	}
 }
 
+// Face 表情消息，接收一个表情id，表情id在这https://github.com/richardchien/coolq-http-api/wiki/%E8%A1%A8%E6%83%85-CQ-%E7%A0%81-ID-%E8%A1%A8
 func (m Message) Face(id int) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "face",
@@ -28,6 +31,7 @@ func (m Message) Face(id int) entity.MessageItem {
 	}
 }
 
+// Replay 回复消息，接收一个消息id
 func (m Message) Replay(id int) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "reply",
@@ -35,6 +39,7 @@ func (m Message) Replay(id int) entity.MessageItem {
 	}
 }
 
+// Image 图片消息，接收一个消息路径，file://,http://,https://,base64://
 func (m Message) Image(file string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "image",
@@ -42,6 +47,7 @@ func (m Message) Image(file string) entity.MessageItem {
 	}
 }
 
+// Audio 语音消息，接收一个消息路径，file://,http://,https://,base64://
 func (m Message) Audio(file string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "record",
@@ -49,6 +55,7 @@ func (m Message) Audio(file string) entity.MessageItem {
 	}
 }
 
+// Video 视频消息，接收一个消息路径，file://,http://,https://,base64://
 func (m Message) Video(file string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "video",
@@ -56,6 +63,7 @@ func (m Message) Video(file string) entity.MessageItem {
 	}
 }
 
+// BasketBall 篮球消息，接收一个类型id，5 没中, 4 擦边没中, 3 卡框, 2 擦边中, 1 正中
 func (m Message) BasketBall(id int) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "basketball",
@@ -63,6 +71,7 @@ func (m Message) BasketBall(id int) entity.MessageItem {
 	}
 }
 
+// Rps 猜拳消息，接收一个猜拳id，锤 3 剪 2 布 1
 func (m Message) Rps(id int) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "new_rps",
@@ -70,6 +79,7 @@ func (m Message) Rps(id int) entity.MessageItem {
 	}
 }
 
+// Dict 骰子消息，接收一个骰子id，点数 ID
 func (m Message) Dict(id int) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "new_dice",
@@ -77,6 +87,7 @@ func (m Message) Dict(id int) entity.MessageItem {
 	}
 }
 
+// Poke 戳一戳消息，接收戳一戳类型，戳一戳 ID，戳一戳强度(1-5 默认1)
 func (m Message) Poke(pokeType, id, strength int64) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "poke",
@@ -88,6 +99,7 @@ func (m Message) Poke(pokeType, id, strength int64) entity.MessageItem {
 	}
 }
 
+// Touch 戳一戳(双击头像)消息，接收一个qq号码
 func (m Message) Touch(id int64) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "touch",
@@ -95,6 +107,7 @@ func (m Message) Touch(id int64) entity.MessageItem {
 	}
 }
 
+// Music 音乐消息，接收音乐类型(qq/163)，音乐id
 func (m Message) Music(musicType string, id int64) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "music",
@@ -102,6 +115,7 @@ func (m Message) Music(musicType string, id int64) entity.MessageItem {
 	}
 }
 
+// MusicCustom 自定义音乐消息，接收音乐类型(自定义请使用 custom),跳转链接,音乐音频链接,标题,歌手,封面图片链接
 func (m Message) MusicCustom(musicType, url, audio, title, singer, image string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "music",
@@ -116,6 +130,7 @@ func (m Message) MusicCustom(musicType, url, audio, title, singer, image string)
 	}
 }
 
+// Weather 天气消息，接收一个城市名称
 func (m Message) Weather(city string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "weather",
@@ -125,6 +140,7 @@ func (m Message) Weather(city string) entity.MessageItem {
 	}
 }
 
+// Location 位置消息，接收纬度，经度，标题，内容
 func (m Message) Location(lat float64, lon float64, title string, content string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "location",
@@ -137,6 +153,7 @@ func (m Message) Location(lat float64, lon float64, title string, content string
 	}
 }
 
+// Share 链接消息，接收链接地址，标题，内容，图片链接，文件链接
 func (m Message) Share(url, title, content, image, file string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "share",
@@ -150,6 +167,7 @@ func (m Message) Share(url, title, content, image, file string) entity.MessageIt
 	}
 }
 
+// Gift 礼物消息，接收QQ号，礼物ID
 func (m Message) Gift(qq, id int64) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "gift",
@@ -160,6 +178,7 @@ func (m Message) Gift(qq, id int64) entity.MessageItem {
 	}
 }
 
+// ForWard 合并转发消息，接收一个合并转发resid
 func (m Message) ForWard(id string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "forward",
@@ -169,6 +188,7 @@ func (m Message) ForWard(id string) entity.MessageItem {
 	}
 }
 
+// ForwardNode 合并转发(节点)消息，接收一个消息ID
 func (m Message) ForwardNode(id int64) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "forward",
@@ -178,10 +198,12 @@ func (m Message) ForwardNode(id int64) entity.MessageItem {
 	}
 }
 
+// XML XML消息，未实现
 func (m Message) XML() entity.MessageItem {
 	panic("Not implemented")
 }
 
+// JSON json消息，接收一段json文本
 func (m Message) JSON(data string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "json",
@@ -191,10 +213,12 @@ func (m Message) JSON(data string) entity.MessageItem {
 	}
 }
 
+// TextToAudio 文本转语音消息，未实现
 func (m Message) TextToAudio() entity.MessageItem {
 	panic("Not implemented")
 }
 
+// Plain 普通文本消息，接收一段文本
 func (m Message) Plain(text string) entity.MessageItem {
 	return entity.MessageItem{
 		Type: "text",
@@ -202,6 +226,7 @@ func (m Message) Plain(text string) entity.MessageItem {
 	}
 }
 
+// AppendMessageList 添加消息到消息列表，接收一系列消息，返回消息列表
 func (m Message) AppendMessageList(msg ...entity.MessageItem) []entity.MessageItem {
 	var msgList []entity.MessageItem
 	for _, item := range msg {

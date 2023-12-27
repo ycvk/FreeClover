@@ -7,23 +7,26 @@ import (
 	"github.com/oliverkirk-sudo/FreeClover/log"
 )
 
-type BotClient struct {
-	HttpAdapter        *openShamrockApi.OpenShamrockApi
-	HttpWebHookAdapter *openShamrockApi.OpenShamrockApi
-	WsAdapter          *openShamrockApi.OpenShamrockApi
-	ReverseWsAdapter   *openShamrockApi.OpenShamrockApi
+// AdapterClient 适配器客户端结构体
+type AdapterClient struct {
+	HttpAdapter        *openShamrockApi.OpenShamrockDriver
+	HttpWebHookAdapter *openShamrockApi.OpenShamrockDriver
+	WsAdapter          *openShamrockApi.OpenShamrockDriver
+	ReverseWsAdapter   *openShamrockApi.OpenShamrockDriver
 	HttpDriver         *openShamrockHttp.HttpDriver
 	WsDriver           *openShamrockWs.WsDriver
 	HttpWebHookDriver  *openShamrockHttp.HttpWebHookDriver
 	ReverseWsDriver    *openShamrockWs.ReverseWsDriver
 }
 
-func GetBotClient() *BotClient {
-	client := BotClient{}
-	return &client
+// GetAdapterClient 获取一个适配器客户端
+func GetAdapterClient() *AdapterClient {
+	client := new(AdapterClient)
+	return client
 }
 
-func (b *BotClient) WithOpenShamrockHttpWebHookClient(url, authToken string) *BotClient {
+// WithOpenShamrockHttpWebHookClient 为适配器添加webhook通信方法
+func (b *AdapterClient) WithOpenShamrockHttpWebHookClient(url, authToken string) *AdapterClient {
 	log.Log.Debug("添加回调HTTP监听")
 	driver := openShamrockHttp.HttpWebHookDriver{}
 	adapter := openShamrockApi.NewOpenShamrockDriver(url, authToken, &driver)
@@ -34,7 +37,9 @@ func (b *BotClient) WithOpenShamrockHttpWebHookClient(url, authToken string) *Bo
 	b.HttpWebHookDriver = &driver
 	return b
 }
-func (b *BotClient) WithOpenShamrockHttpClient(url, authToken string) *BotClient {
+
+// WithOpenShamrockHttpClient 为适配器添加HTTP通信方法
+func (b *AdapterClient) WithOpenShamrockHttpClient(url, authToken string) *AdapterClient {
 	log.Log.Debug("添加主动HTTP请求")
 	driver := openShamrockHttp.HttpDriver{}
 	adapter := openShamrockApi.NewOpenShamrockDriver(url, authToken, &driver)
@@ -45,7 +50,9 @@ func (b *BotClient) WithOpenShamrockHttpClient(url, authToken string) *BotClient
 	b.HttpDriver = &driver
 	return b
 }
-func (b *BotClient) WithOpenShamrockReverseWsClient(url, authToken string) *BotClient {
+
+// WithOpenShamrockReverseWsClient 为适配器添加反向WebSocket通信方法
+func (b *AdapterClient) WithOpenShamrockReverseWsClient(url, authToken string) *AdapterClient {
 	log.Log.Debug("添加被动WebSocket监听")
 	driver := openShamrockWs.ReverseWsDriver{}
 	adapter := openShamrockApi.NewOpenShamrockDriver(url, authToken, &driver)
@@ -56,7 +63,9 @@ func (b *BotClient) WithOpenShamrockReverseWsClient(url, authToken string) *BotC
 	b.ReverseWsDriver = &driver
 	return b
 }
-func (b *BotClient) WithOpenShamrockWsClient(url, authToken string) *BotClient {
+
+// WithOpenShamrockWsClient 为适配器添加正向WebSocket通信方法
+func (b *AdapterClient) WithOpenShamrockWsClient(url, authToken string) *AdapterClient {
 	log.Log.Debug("添加主动WebSocket监听")
 	driver := openShamrockWs.WsDriver{}
 	adapter := openShamrockApi.NewOpenShamrockDriver(url, authToken, &driver)

@@ -8,3 +8,41 @@
 - [x] 被动HTTP
 - [x] 主动WebSocket
 - [x] 被动WebSocket
+
+## 使用方法
+
+```golang
+package main
+
+import (
+	"github.com/duke-git/lancet/v2/formatter"
+	"github.com/oliverkirk-sudo/FreeClover/client"
+	entity "github.com/oliverkirk-sudo/FreeClover/entity/openshamrock"
+)
+
+func main() {
+	bot := client.GetAdapterClient()
+	bot.WithOpenShamrockHttpClient("http://192.168.2.181:5801", "auth_token")
+
+	ad := bot.HttpAdapter //http适配器
+
+	msgList := ad.Message.AppendMessageList(
+		ad.Message.Plain("测试文本"),
+		ad.Message.Face(123),
+	)
+	messageBody := entity.SendPrivateMessage{
+		UserId:     609923924,
+		Message:    msgList,
+		AutoEscape: false,
+	}
+
+	resp := ad.Api.Message.SendPrivateMessage(messageBody)
+	pretty, err := formatter.Pretty(resp)
+	if err != nil {
+		return
+	}
+	println(pretty)
+}
+```
+## 许可证
+**AGPL-3.0**

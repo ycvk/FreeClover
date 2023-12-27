@@ -2,6 +2,7 @@ package adapter
 
 import entity "github.com/oliverkirk-sudo/FreeClover/entity/openshamrock"
 
+// Adapter 适配器结构体
 type Adapter struct {
 	Account                account
 	Contacts               contacts

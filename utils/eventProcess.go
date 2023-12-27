@@ -6,10 +6,12 @@ import (
 	"github.com/oliverkirk-sudo/FreeClover/log"
 )
 
+// MsgQueue 消息通道
 type MsgQueue struct {
 	MsgList chan map[string]interface{}
 }
 
+// AddMessageInList 添加消息到消息通道中
 func (m *MsgQueue) AddMessageInList(message []byte) {
 	var heartBeat event.HeartBeat
 	var data map[string]interface{}
@@ -31,9 +33,12 @@ func (m *MsgQueue) AddMessageInList(message []byte) {
 	m.MsgList <- data
 }
 
+// GetMessageItemBlock 以阻塞的方式获取消息通道中的内容，队列为空时阻塞
 func (m *MsgQueue) GetMessageItemBlock() map[string]interface{} {
 	return <-m.MsgList
 }
+
+// GetMessageItem 以非阻塞的方式获取消息通道中的内容，队列为空时返回空对象
 func (m *MsgQueue) GetMessageItem() map[string]interface{} {
 	select {
 	case t := <-m.MsgList:
@@ -42,6 +47,8 @@ func (m *MsgQueue) GetMessageItem() map[string]interface{} {
 		return map[string]interface{}{}
 	}
 }
+
+// IsEmpty 判断队列是否为空
 func (m *MsgQueue) IsEmpty() bool {
 	return len(m.MsgList) == 0
 }
