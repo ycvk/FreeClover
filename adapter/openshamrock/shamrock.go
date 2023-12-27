@@ -60,7 +60,8 @@ func (o OpenShamrock) GetStartTime() entity.StartTime {
 // GetLog 该接口用于获取文本日志
 func (o OpenShamrock) GetLog() string {
 	endpoint := "log"
-	return *processJson[string](endpoint, nil, o.transceiver)
+	panic("Not implemented: " + endpoint)
+	//return *processJson[string](endpoint, nil, o.transceiver)
 }
 
 func (o OpenShamrock) RunShell(cmd interface{}, dir string) {
