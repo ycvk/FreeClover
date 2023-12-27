@@ -9,10 +9,10 @@ import (
 
 // AdapterClient 适配器客户端结构体
 type AdapterClient struct {
-	HttpAdapter        *openShamrockApi.OpenShamrockDriver
-	HttpWebHookAdapter *openShamrockApi.OpenShamrockDriver
-	WsAdapter          *openShamrockApi.OpenShamrockDriver
-	ReverseWsAdapter   *openShamrockApi.OpenShamrockDriver
+	HttpAdapter        *openShamrockApi.OpenShamrockAdapter
+	HttpWebHookAdapter *openShamrockApi.OpenShamrockAdapter
+	WsAdapter          *openShamrockApi.OpenShamrockAdapter
+	ReverseWsAdapter   *openShamrockApi.OpenShamrockAdapter
 	HttpDriver         *openShamrockHttp.HttpDriver
 	WsDriver           *openShamrockWs.WsDriver
 	HttpWebHookDriver  *openShamrockHttp.HttpWebHookDriver

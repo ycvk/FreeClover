@@ -9,8 +9,8 @@ import (
 	openshamrockmsg "github.com/oliverkirk-sudo/FreeClover/msg/openshamrock"
 )
 
-// OpenShamrockDriver OpenShamrock驱动结构体
-type OpenShamrockDriver struct {
+// OpenShamrockAdapter OpenShamrock驱动结构体
+type OpenShamrockAdapter struct {
 	transceiver driver.Transceiver
 	Url         string
 	Api         adapter.Adapter
@@ -18,7 +18,7 @@ type OpenShamrockDriver struct {
 }
 
 // NewOpenShamrockDriver 获取一个OpenShamrock驱动
-func NewOpenShamrockDriver(url string, authToken string, transceiver driver.Transceiver) *OpenShamrockDriver {
+func NewOpenShamrockDriver(url string, authToken string, transceiver driver.Transceiver) *OpenShamrockAdapter {
 	err := transceiver.Connect(url, authToken)
 	if err != nil {
 		log.Log.Warning("[WebSocket] 连接失败: ", err)
@@ -35,7 +35,7 @@ func NewOpenShamrockDriver(url string, authToken string, transceiver driver.Tran
 		File:                   File{transceiver},
 		OpenShamrockSpecialApi: OpenShamrock{transceiver},
 	}
-	return &OpenShamrockDriver{Url: url, Api: apis, transceiver: transceiver, Message: openshamrockmsg.Message{}}
+	return &OpenShamrockAdapter{Url: url, Api: apis, transceiver: transceiver, Message: openshamrockmsg.Message{}}
 }
 func processJson[T interface{}](endpoint string, data []byte, transceiver driver.Transceiver) *T {
 	log.Log.Debug("[ProcessJson] 当前端点：" + endpoint)
