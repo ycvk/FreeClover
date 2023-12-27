@@ -16,7 +16,7 @@ type OpenShamrockApi struct {
 	Message     msg.MessageType
 }
 
-func NewOpenShamrockApi(url string, authToken string, transceiver driver.Transceiver) *OpenShamrockApi {
+func NewOpenShamrockDriver(url string, authToken string, transceiver driver.Transceiver) *OpenShamrockApi {
 	err := transceiver.Connect(url, authToken)
 	if err != nil {
 		log.Log.Warning("[WebSocket] 连接失败: ", err)
