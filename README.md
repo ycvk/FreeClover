@@ -10,6 +10,8 @@
 - [x] 被动WebSocket
 
 ## 使用方法
+### 安装
+`go get github.com/oliverkirk-sudo/FreeClover`
 
 ```golang
 package main
