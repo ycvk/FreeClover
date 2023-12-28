@@ -1,6 +1,6 @@
 # FreeClover
 
-**基于Go的[OpenShamrock](https://github.com/whitechi73/OpenShamrock)登录框架，兼容OpenShamrock的接口**
+**基于Go的[OpenShamrock](https://github.com/whitechi73/OpenShamrock)登录框架，兼容OneBot11/12的接口**
 
 ## 连接方式
 
