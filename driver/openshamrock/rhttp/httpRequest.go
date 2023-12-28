@@ -25,10 +25,10 @@ func (h *HttpDriver) Connect(url string, authToken string) error {
 }
 
 func (h *HttpDriver) SendFormRequest(data url.Values, endpoint string) ([]byte, error) {
-	log.Log.Debug("[HTTP] 发送了form数据")
 	var response *http.Response
 	var err error
 	if data != nil {
+		log.Log.Debug("[HTTP] 发送了form数据")
 		req, err := http.NewRequest("POST", h.url+"/"+endpoint, strings.NewReader(data.Encode()))
 		if err != nil {
 			return nil, err
@@ -61,10 +61,10 @@ func (h *HttpDriver) SendFormRequest(data url.Values, endpoint string) ([]byte, 
 	return body, nil
 }
 func (h *HttpDriver) SendJsonRequest(data []byte, endpoint string) ([]byte, error) {
-	log.Log.Debug("[HTTP] 发送了json数据")
 	var response *http.Response
 	var err error
 	if data != nil {
+		log.Log.Debug("[HTTP] 发送了json数据")
 		req, err := http.NewRequest("POST", h.url+"/"+endpoint, bytes.NewBuffer(data))
 		if err != nil {
 			return nil, err

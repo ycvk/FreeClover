@@ -13,7 +13,7 @@ func init() {
 	if err != nil {
 		return
 	}
-	Log.SetLevel(level)
+	logrus.SetLevel(level)
 
 	Log.SetOutput(os.Stdout)
 
