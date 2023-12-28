@@ -128,56 +128,86 @@ type UnidirectionalFriend struct {
 	Nickname string `json:"nickname"`
 	Source   string `json:"source"`
 }
-type GroupDetail struct {
-	GroupId        int    `json:"group_id"`
-	GroupName      string `json:"group_name"`
-	GroupRemark    string `json:"group_remark"`
-	GroupUin       int    `json:"group_uin"`
-	Admins         []int  `json:"admins"`
-	ClassText      string `json:"class_text"`
-	IsFrozen       bool   `json:"is_frozen"`
-	MaxMember      int    `json:"max_member"`
-	MemberNum      int    `json:"member_num"`
-	MemberCount    int    `json:"member_count"`
-	MaxMemberCount int    `json:"max_member_count"`
-}
 type GroupInfo struct {
 	Common
-	Data GroupDetail `json:"data,omitempty"`
+	Data struct {
+		GroupId        int    `json:"group_id"`
+		GroupName      string `json:"group_name"`
+		GroupRemark    string `json:"group_remark"`
+		GroupUin       int    `json:"group_uin"`
+		Admins         []int  `json:"admins"`
+		ClassText      string `json:"class_text"`
+		IsFrozen       bool   `json:"is_frozen"`
+		MaxMember      int    `json:"max_member"`
+		MemberNum      int    `json:"member_num"`
+		MemberCount    int    `json:"member_count"`
+		MaxMemberCount int    `json:"max_member_count"`
+	} `json:"data,omitempty"`
 }
 type GroupList struct {
 	Common
-	Data []GroupDetail `json:"data,omitempty"`
-}
-type UserInfo struct {
-	UserId          int    `json:"user_id"`
-	GroupId         int    `json:"group_id"`
-	UserName        string `json:"user_name"`
-	Sex             string `json:"sex"`
-	Title           string `json:"title"`
-	TitleExpireTime int    `json:"title_expire_time"`
-	Nickname        string `json:"nickname"`
-	UserDisplayname string `json:"user_displayname"`
-	Distance        int    `json:"distance"`
-	Honor           []int  `json:"honor"`
-	JoinTime        int    `json:"join_time"`
-	LastActiveTime  int    `json:"last_active_time"`
-	LastSentTime    int    `json:"last_sent_time"`
-	UniqueName      string `json:"unique_name"`
-	Area            string `json:"area"`
-	Level           int    `json:"level"`
-	Role            string `json:"role"`
-	Unfriendly      bool   `json:"unfriendly"`
-	CardChangeable  bool   `json:"card_changeable"`
+	Data []struct {
+		GroupId        int    `json:"group_id"`
+		GroupName      string `json:"group_name"`
+		GroupRemark    string `json:"group_remark"`
+		GroupUin       int    `json:"group_uin"`
+		Admins         []int  `json:"admins"`
+		ClassText      string `json:"class_text"`
+		IsFrozen       bool   `json:"is_frozen"`
+		MaxMember      int    `json:"max_member"`
+		MemberNum      int    `json:"member_num"`
+		MemberCount    int    `json:"member_count"`
+		MaxMemberCount int    `json:"max_member_count"`
+	} `json:"data,omitempty"`
 }
 type GroupMemberInfo struct {
 	Common
-	Data UserInfo `json:"data,omitempty"`
+	Data struct {
+		UserId          int    `json:"user_id"`
+		GroupId         int    `json:"group_id"`
+		UserName        string `json:"user_name"`
+		Sex             string `json:"sex"`
+		Title           string `json:"title"`
+		TitleExpireTime int    `json:"title_expire_time"`
+		Nickname        string `json:"nickname"`
+		UserDisplayname string `json:"user_displayname"`
+		Distance        int    `json:"distance"`
+		Honor           []int  `json:"honor"`
+		JoinTime        int    `json:"join_time"`
+		LastActiveTime  int    `json:"last_active_time"`
+		LastSentTime    int    `json:"last_sent_time"`
+		UniqueName      string `json:"unique_name"`
+		Area            string `json:"area"`
+		Level           int    `json:"level"`
+		Role            string `json:"role"`
+		Unfriendly      bool   `json:"unfriendly"`
+		CardChangeable  bool   `json:"card_changeable"`
+	} `json:"data,omitempty"`
 }
 
 type GroupMemberList struct {
 	Common
-	Data []UserInfo `json:"data,omitempty"`
+	Data []struct {
+		UserId          int    `json:"user_id"`
+		GroupId         int    `json:"group_id"`
+		UserName        string `json:"user_name"`
+		Sex             string `json:"sex"`
+		Title           string `json:"title"`
+		TitleExpireTime int    `json:"title_expire_time"`
+		Nickname        string `json:"nickname"`
+		UserDisplayname string `json:"user_displayname"`
+		Distance        int    `json:"distance"`
+		Honor           []int  `json:"honor"`
+		JoinTime        int    `json:"join_time"`
+		LastActiveTime  int    `json:"last_active_time"`
+		LastSentTime    int    `json:"last_sent_time"`
+		UniqueName      string `json:"unique_name"`
+		Area            string `json:"area"`
+		Level           int    `json:"level"`
+		Role            string `json:"role"`
+		Unfriendly      bool   `json:"unfriendly"`
+		CardChangeable  bool   `json:"card_changeable"`
+	} `json:"data,omitempty"`
 }
 type HonorInfo struct {
 	UserID      int64  `json:"user_id"`
@@ -200,31 +230,29 @@ type GroupHonorInfo struct {
 type GroupSystemMsg struct {
 	Common
 	Data struct {
-		InvitedRequests []InvitedRequest `json:"invited_requests"`
-		JoinRequests    []JoinRequest    `json:"join_requests"`
+		InvitedRequests []struct {
+			RequestID    int64  `json:"request_id"`
+			InvitorUIN   int64  `json:"invitor_uin"`
+			InvitorNick  string `json:"invitor_nick"`
+			GroupID      int64  `json:"group_id"`
+			GroupName    string `json:"group_name"`
+			Checked      bool   `json:"checked"`
+			Actor        int64  `json:"actor"`
+			RequesterUIN int64  `json:"requester_uin"`
+			Flag         string `json:"flag"`
+		} `json:"invited_requests"`
+		JoinRequests []struct {
+			RequestID     int64  `json:"request_id"`
+			RequesterUIN  int64  `json:"requester_uin"`
+			RequesterNick string `json:"requester_nick"`
+			Message       string `json:"message"`
+			GroupID       int64  `json:"group_id"`
+			GroupName     string `json:"group_name"`
+			Checked       bool   `json:"checked"`
+			Actor         int64  `json:"actor"`
+			Flag          string `json:"flag"`
+		} `json:"join_requests"`
 	} `json:"data,omitempty"`
-}
-type InvitedRequest struct {
-	RequestID    int64  `json:"request_id"`
-	InvitorUIN   int64  `json:"invitor_uin"`
-	InvitorNick  string `json:"invitor_nick"`
-	GroupID      int64  `json:"group_id"`
-	GroupName    string `json:"group_name"`
-	Checked      bool   `json:"checked"`
-	Actor        int64  `json:"actor"`
-	RequesterUIN int64  `json:"requester_uin"`
-	Flag         string `json:"flag"`
-}
-type JoinRequest struct {
-	RequestID     int64  `json:"request_id"`
-	RequesterUIN  int64  `json:"requester_uin"`
-	RequesterNick string `json:"requester_nick"`
-	Message       string `json:"message"`
-	GroupID       int64  `json:"group_id"`
-	GroupName     string `json:"group_name"`
-	Checked       bool   `json:"checked"`
-	Actor         int64  `json:"actor"`
-	Flag          string `json:"flag"`
 }
 type FriendSystemMsg struct {
 	Common
