@@ -1,6 +1,6 @@
 package adapter
 
-import entity "github.com/oliverkirk-sudo/FreeClover/entity/openshamrock"
+import entity "github.com/ycvk/FreeClover/entity/openshamrock"
 
 // Adapter 适配器结构体
 type Adapter struct {

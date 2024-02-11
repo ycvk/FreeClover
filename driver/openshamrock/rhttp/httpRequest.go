@@ -3,7 +3,7 @@ package openShamrockHttp
 import (
 	"bytes"
 	http "github.com/bogdanfinn/fhttp"
-	"github.com/oliverkirk-sudo/FreeClover/log"
+	"github.com/ycvk/FreeClover/log"
 	"io"
 	"net/url"
 	"strings"

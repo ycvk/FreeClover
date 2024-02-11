@@ -3,8 +3,8 @@ package openShamrockWs
 import (
 	"encoding/json"
 	"github.com/gorilla/websocket"
-	"github.com/oliverkirk-sudo/FreeClover/log"
-	"github.com/oliverkirk-sudo/FreeClover/utils"
+	"github.com/ycvk/FreeClover/log"
+	"github.com/ycvk/FreeClover/utils"
 	"net/http"
 	"net/url"
 	"os"

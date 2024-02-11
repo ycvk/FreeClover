@@ -2,8 +2,8 @@ package openShamrockApi
 
 import (
 	"encoding/json"
-	adapter "github.com/oliverkirk-sudo/FreeClover/driver/openshamrock"
-	entity "github.com/oliverkirk-sudo/FreeClover/entity/openshamrock"
+	adapter "github.com/ycvk/FreeClover/driver/openshamrock"
+	entity "github.com/ycvk/FreeClover/entity/openshamrock"
 )
 
 // Group 群组相关

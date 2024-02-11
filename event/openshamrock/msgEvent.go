@@ -1,7 +1,7 @@
 package openShamrockEvent
 
 import (
-	entity "github.com/oliverkirk-sudo/FreeClover/entity/openshamrock"
+	entity "github.com/ycvk/FreeClover/entity/openshamrock"
 )
 
 type messageSender struct {

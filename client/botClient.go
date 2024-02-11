@@ -1,10 +1,10 @@
 package client
 
 import (
-	openShamrockApi "github.com/oliverkirk-sudo/FreeClover/adapter/openshamrock"
-	openShamrockHttp "github.com/oliverkirk-sudo/FreeClover/driver/openshamrock/rhttp"
-	openShamrockWs "github.com/oliverkirk-sudo/FreeClover/driver/openshamrock/rws"
-	"github.com/oliverkirk-sudo/FreeClover/log"
+	openShamrockApi "github.com/ycvk/FreeClover/adapter/openshamrock"
+	openShamrockHttp "github.com/ycvk/FreeClover/driver/openshamrock/rhttp"
+	openShamrockWs "github.com/ycvk/FreeClover/driver/openshamrock/rws"
+	"github.com/ycvk/FreeClover/log"
 )
 
 // AdapterClient 适配器客户端结构体

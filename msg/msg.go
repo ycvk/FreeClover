@@ -1,6 +1,6 @@
 package msg
 
-import entity "github.com/oliverkirk-sudo/FreeClover/entity/openshamrock"
+import entity "github.com/ycvk/FreeClover/entity/openshamrock"
 
 type MessageType interface {
 	At(qq string) entity.MessageItem

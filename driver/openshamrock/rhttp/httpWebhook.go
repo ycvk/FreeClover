@@ -2,8 +2,8 @@ package openShamrockHttp
 
 import (
 	"errors"
-	"github.com/oliverkirk-sudo/FreeClover/log"
-	"github.com/oliverkirk-sudo/FreeClover/utils"
+	"github.com/ycvk/FreeClover/log"
+	"github.com/ycvk/FreeClover/utils"
 	"io"
 	"net/http"
 	"net/url"

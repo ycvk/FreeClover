@@ -2,11 +2,11 @@ package openShamrockApi
 
 import (
 	"encoding/json"
-	"github.com/oliverkirk-sudo/FreeClover/adapter"
-	driver "github.com/oliverkirk-sudo/FreeClover/driver/openshamrock"
-	"github.com/oliverkirk-sudo/FreeClover/log"
-	"github.com/oliverkirk-sudo/FreeClover/msg"
-	openshamrockmsg "github.com/oliverkirk-sudo/FreeClover/msg/openshamrock"
+	"github.com/ycvk/FreeClover/adapter"
+	driver "github.com/ycvk/FreeClover/driver/openshamrock"
+	"github.com/ycvk/FreeClover/log"
+	"github.com/ycvk/FreeClover/msg"
+	openshamrockmsg "github.com/ycvk/FreeClover/msg/openshamrock"
 )
 
 // OpenShamrockAdapter OpenShamrock驱动结构体

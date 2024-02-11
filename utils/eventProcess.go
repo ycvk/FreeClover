@@ -2,8 +2,8 @@ package utils
 
 import (
 	"encoding/json"
-	event "github.com/oliverkirk-sudo/FreeClover/event/openshamrock"
-	"github.com/oliverkirk-sudo/FreeClover/log"
+	event "github.com/ycvk/FreeClover/event/openshamrock"
+	"github.com/ycvk/FreeClover/log"
 )
 
 // MsgQueue 消息通道接口

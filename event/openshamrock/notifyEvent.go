@@ -1,6 +1,6 @@
 package openShamrockEvent
 
-import entity "github.com/oliverkirk-sudo/FreeClover/entity/openshamrock"
+import entity "github.com/ycvk/FreeClover/entity/openshamrock"
 
 type FriendRecallEvent struct {
 	BaseReport
