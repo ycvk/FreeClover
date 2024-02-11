@@ -6,13 +6,27 @@ import (
 	"github.com/oliverkirk-sudo/FreeClover/log"
 )
 
-// MsgQueue 消息通道
-type MsgQueue struct {
+// MsgQueue 消息通道接口
+type MsgQueue interface {
+	AddMessageInList(message []byte)
+	GetMessageItemBlock() map[string]interface{}
+	GetMessageItem() map[string]interface{}
+	IsEmpty() bool
+}
+
+// OriginMsgQueue  消息通道
+type OriginMsgQueue struct {
 	MsgList chan map[string]interface{}
 }
 
+func NewOriginMsgQueue() MsgQueue {
+	return &OriginMsgQueue{
+		MsgList: make(chan map[string]interface{}, 256),
+	}
+}
+
 // AddMessageInList 添加消息到消息通道中
-func (m *MsgQueue) AddMessageInList(message []byte) {
+func (m *OriginMsgQueue) AddMessageInList(message []byte) {
 	var heartBeat event.HeartBeat
 	var data map[string]interface{}
 	json.Unmarshal(message, &heartBeat)
@@ -34,12 +48,12 @@ func (m *MsgQueue) AddMessageInList(message []byte) {
 }
 
 // GetMessageItemBlock 以阻塞的方式获取消息通道中的内容，队列为空时阻塞
-func (m *MsgQueue) GetMessageItemBlock() map[string]interface{} {
+func (m *OriginMsgQueue) GetMessageItemBlock() map[string]interface{} {
 	return <-m.MsgList
 }
 
 // GetMessageItem 以非阻塞的方式获取消息通道中的内容，队列为空时返回空对象
-func (m *MsgQueue) GetMessageItem() map[string]interface{} {
+func (m *OriginMsgQueue) GetMessageItem() map[string]interface{} {
 	select {
 	case t := <-m.MsgList:
 		return t
@@ -49,10 +63,10 @@ func (m *MsgQueue) GetMessageItem() map[string]interface{} {
 }
 
 // IsEmpty 判断队列是否为空
-func (m *MsgQueue) IsEmpty() bool {
+func (m *OriginMsgQueue) IsEmpty() bool {
 	return len(m.MsgList) == 0
 }
-func (m *MsgQueue) eventDetail(data map[string]interface{}) {
+func (m *OriginMsgQueue) eventDetail(data map[string]interface{}) {
 	postType := data["post_type"].(string)
 	println(postType)
 	switch postType {

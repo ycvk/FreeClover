@@ -27,7 +27,7 @@ func (r *ReverseWsDriver) Connect(url string, authToken string) error {
 	log.Log.Debug("[ReverseWebSocket] 初始化连接")
 	r.url = url
 	r.authToken = authToken
-	r.MsgQueue = utils.MsgQueue{MsgList: make(chan map[string]interface{}, 256)}
+	r.MsgQueue = utils.NewOriginMsgQueue()
 	http.HandleFunc("/ws", r.handler)
 	go func() {
 		log.Log.Debug("[ReverseWebSocket] WebSocket服务器启动,地址为: ", url, "/ws")

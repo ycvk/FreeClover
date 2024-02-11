@@ -18,7 +18,7 @@ type HttpWebHookDriver struct {
 
 func (h *HttpWebHookDriver) Connect(url string, authToken string) error {
 	log.Log.Debug("[WebHook] 初始化连接")
-	h.MsgQueue = utils.MsgQueue{MsgList: make(chan map[string]interface{}, 256)}
+	h.MsgQueue = utils.NewOriginMsgQueue()
 	h.url = url
 	h.authToken = authToken
 	http.HandleFunc("/hook", func(w http.ResponseWriter, r *http.Request) {

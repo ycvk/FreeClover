@@ -25,7 +25,7 @@ func (w *WsDriver) Connect(url string, authToken string) error {
 	var err error
 	w.url = url
 	w.authToken = authToken
-	w.MsgQueue = utils.MsgQueue{MsgList: make(chan map[string]interface{}, 256)}
+	w.MsgQueue = utils.NewOriginMsgQueue()
 	w.Instance, err = w.createWebSocketConnection()
 	log.Log.Debug("[WebSocket] 启动了WebSocket连接")
 	w.pollingEvents()
