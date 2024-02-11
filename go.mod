@@ -1,4 +1,4 @@
-module github.com/oliverkirk-sudo/FreeClover
+module github.com/ycvk/FreeClover
 
 go 1.21.7
 
