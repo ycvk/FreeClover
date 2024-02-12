@@ -15,6 +15,13 @@ const (
 	RequestTypeFile
 )
 
+type (
+	OpenShamrockHttpAdapter      OpenShamrockAdapter
+	OpenShamrockHttpHookAdapter  OpenShamrockAdapter
+	OpenShamrockWsAdapter        OpenShamrockAdapter
+	OpenShamrockReverseWsAdapter OpenShamrockAdapter
+)
+
 // OpenShamrockAdapter OpenShamrock驱动结构体
 type OpenShamrockAdapter struct {
 	transceiver driver.Transceiver

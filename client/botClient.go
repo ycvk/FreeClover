@@ -9,10 +9,10 @@ import (
 
 // AdapterClient 适配器客户端结构体
 type AdapterClient struct {
-	HttpAdapter        *openShamrockApi.OpenShamrockAdapter
-	HttpWebHookAdapter *openShamrockApi.OpenShamrockAdapter
-	WsAdapter          *openShamrockApi.OpenShamrockAdapter
-	ReverseWsAdapter   *openShamrockApi.OpenShamrockAdapter
+	HttpAdapter        *openShamrockApi.OpenShamrockHttpAdapter
+	HttpWebHookAdapter *openShamrockApi.OpenShamrockHttpHookAdapter
+	WsAdapter          *openShamrockApi.OpenShamrockWsAdapter
+	ReverseWsAdapter   *openShamrockApi.OpenShamrockReverseWsAdapter
 	HttpDriver         *openShamrockHttp.HttpDriver
 	WsDriver           *openShamrockWs.WsDriver
 	HttpWebHookDriver  *openShamrockHttp.HttpWebHookDriver
@@ -33,7 +33,7 @@ func (b *AdapterClient) WithOpenShamrockHttpWebHookClient(url, authToken string)
 	if adapter == nil {
 		log.Log.Warning("[WebHook] 连接失败")
 	}
-	b.HttpWebHookAdapter = adapter
+	b.HttpWebHookAdapter = (*openShamrockApi.OpenShamrockHttpHookAdapter)(adapter)
 	b.HttpWebHookDriver = &driver
 	return b
 }
@@ -46,7 +46,7 @@ func (b *AdapterClient) WithOpenShamrockHttpClient(url, authToken string) *Adapt
 	if adapter == nil {
 		log.Log.Warning("[HTTP] 连接失败")
 	}
-	b.HttpAdapter = adapter
+	b.HttpAdapter = (*openShamrockApi.OpenShamrockHttpAdapter)(adapter)
 	b.HttpDriver = &driver
 	return b
 }
@@ -59,7 +59,7 @@ func (b *AdapterClient) WithOpenShamrockReverseWsClient(url, authToken string) *
 	if adapter == nil {
 		log.Log.Warning("[ReverseWebSocket] 连接失败")
 	}
-	b.ReverseWsAdapter = adapter
+	b.ReverseWsAdapter = (*openShamrockApi.OpenShamrockReverseWsAdapter)(adapter)
 	b.ReverseWsDriver = &driver
 	return b
 }
@@ -72,7 +72,7 @@ func (b *AdapterClient) WithOpenShamrockWsClient(url, authToken string) *Adapter
 	if adapter == nil {
 		log.Log.Warning("[WebSocket] 连接失败")
 	}
-	b.WsAdapter = adapter
+	b.WsAdapter = (*openShamrockApi.OpenShamrockWsAdapter)(adapter)
 	b.WsDriver = &driver
 	return b
 }
