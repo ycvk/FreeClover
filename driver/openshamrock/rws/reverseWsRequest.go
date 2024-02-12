@@ -7,6 +7,7 @@ import (
 	"github.com/ycvk/FreeClover/utils"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 	"time"
 )
@@ -67,7 +68,7 @@ func (r *ReverseWsDriver) handler(w http.ResponseWriter, q *http.Request) {
 	}
 }
 
-func (r *ReverseWsDriver) SendFileRequest(data []byte, endpoint string) ([]byte, error) {
+func (r *ReverseWsDriver) SendFileRequest(data *os.File, endpoint string) ([]byte, error) {
 	log.Log.Warning("[ReverseWebSocket] 不支持发送消息")
 	return nil, errors.New("[ReverseWebSocket] 不支持发送消息")
 }

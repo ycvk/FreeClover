@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 )
 
@@ -52,7 +53,7 @@ func (h *HttpWebHookDriver) SendJsonRequest(data []byte, endpoint string) ([]byt
 	return nil, errors.New("[WebHook] 不支持发送消息")
 }
 
-func (h *HttpWebHookDriver) SendFileRequest(data []byte, endpoint string) ([]byte, error) {
+func (h *HttpWebHookDriver) SendFileRequest(data *os.File, endpoint string) ([]byte, error) {
 	log.Log.Warning("[WebHook] 不支持发送消息")
 	return nil, errors.New("[WebHook] 不支持发送消息")
 }

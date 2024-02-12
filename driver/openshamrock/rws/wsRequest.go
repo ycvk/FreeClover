@@ -145,7 +145,7 @@ func (w *WsDriver) receiveHandler(m chan<- []byte, ch chan<- int) {
 		m <- message
 	}
 }
-func (w *WsDriver) SendFileRequest(data []byte, endpoint string) ([]byte, error) {
+func (w *WsDriver) SendFileRequest(data *os.File, endpoint string) ([]byte, error) {
 	log.Log.Warning("[WebSocket] 不支持发送文件")
 	return nil, nil
 }

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	adapter "github.com/ycvk/FreeClover/driver/openshamrock"
 	entity "github.com/ycvk/FreeClover/entity/openshamrock"
-	"io"
 	"os"
 )
 
@@ -34,11 +33,7 @@ func (o OpenShamrock) UploadFileToCache(filePath string) entity.UploadCache {
 		return entity.UploadCache{}
 	}
 	defer file.Close()
-	bytes, err := io.ReadAll(file)
-	if err != nil {
-		return entity.UploadCache{}
-	}
-	return *processJson[entity.UploadCache](endpoint, bytes, o.transceiver, RequestTypeFile)
+	return *processJsonForFile[entity.UploadCache](endpoint, file, o.transceiver)
 }
 
 // DownloadFileToCache 该接口用于让设备下载链接的文件

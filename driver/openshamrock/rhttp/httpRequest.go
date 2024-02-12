@@ -7,9 +7,8 @@ import (
 	"io"
 	"mime/multipart"
 	"net/url"
-	"strconv"
+	"os"
 	"strings"
-	"time"
 )
 
 type HttpDriver struct {
@@ -100,27 +99,27 @@ func (h *HttpDriver) SendJsonRequest(data []byte, endpoint string) ([]byte, erro
 	return body, nil
 }
 
-func (h *HttpDriver) SendFileRequest(data []byte, endpoint string) ([]byte, error) {
+func (h *HttpDriver) SendFileRequest(data *os.File, endpoint string) ([]byte, error) {
 	var response *http.Response
 	var err error
 	if data != nil {
 		log.Log.Debug("[HTTP] 发送了文件")
-		buffer := bytes.NewBuffer(data)
-		multiPartWriter := multipart.NewWriter(buffer)
+		requestBody := &bytes.Buffer{}
+		multiPartWriter := multipart.NewWriter(requestBody)
 		// 创建一个新的表单文件字段
-		fileWriter, err := multiPartWriter.CreateFormFile("file", strconv.FormatInt(time.Now().UnixMilli(), 10))
+		fileWriter, err := multiPartWriter.CreateFormFile("file", data.Name())
 		if err != nil {
 			return nil, err
 		}
 		// 将文件内容拷贝到表单文件字段
-		_, err = io.Copy(fileWriter, buffer)
+		_, err = io.Copy(fileWriter, data)
 		if err != nil {
 			return nil, err
 		}
 		// 关闭多部分写入器
 		multiPartWriter.Close()
 		// 创建一个新的请求
-		req, err := http.NewRequest("POST", h.url+"/"+endpoint, buffer)
+		req, err := http.NewRequest("POST", h.url+"/"+endpoint, requestBody)
 		if err != nil {
 			return nil, err
 		}

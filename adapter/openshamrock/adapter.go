@@ -7,12 +7,7 @@ import (
 	"github.com/ycvk/FreeClover/log"
 	"github.com/ycvk/FreeClover/msg"
 	openshamrockmsg "github.com/ycvk/FreeClover/msg/openshamrock"
-)
-
-const (
-	RequestTypeJson = iota
-	RequestTypeForm
-	RequestTypeFile
+	"os"
 )
 
 type (
@@ -50,7 +45,7 @@ func NewOpenShamrockDriver(url string, authToken string, transceiver driver.Tran
 	}
 	return &OpenShamrockAdapter{Url: url, Api: apis, transceiver: transceiver, Message: openshamrockmsg.Message{}}
 }
-func processJson[T interface{}](endpoint string, data []byte, transceiver driver.Transceiver, reqType ...int) *T {
+func processJson[T any](endpoint string, data []byte, transceiver driver.Transceiver) *T {
 	log.Log.Debug("[ProcessJson] 当前端点：" + endpoint)
 	var (
 		a    T
@@ -59,18 +54,43 @@ func processJson[T interface{}](endpoint string, data []byte, transceiver driver
 	)
 	if data != nil {
 		log.Log.Debug("有数据请求")
-		if reqType != nil && reqType[0] == RequestTypeFile {
-			resp, err = transceiver.SendFileRequest(data, endpoint)
-			if err != nil {
-				log.Log.Warning("[ProcessJson] 解析返回值错误")
-				return &a
-			}
-		} else {
-			resp, err = transceiver.SendJsonRequest(data, endpoint)
-			if err != nil {
-				log.Log.Warning("[ProcessJson] 解析返回值错误")
-				return &a
-			}
+		resp, err = transceiver.SendJsonRequest(data, endpoint)
+		if err != nil {
+			log.Log.Warning("[ProcessJson] 解析返回值错误")
+			return &a
+		}
+	} else {
+		log.Log.Debug("无数据请求")
+		resp, err = transceiver.SendJsonRequest(nil, endpoint)
+		if err != nil {
+			log.Log.Warning("[ProcessJson] 解析返回值错误")
+			return &a
+		}
+	}
+	if resp != nil {
+		err = json.Unmarshal(resp, &a)
+		if err != nil {
+			log.Log.Warning("[ProcessJson] json解析时出现问题: ", err)
+			return &a
+		}
+		return &a
+	}
+	return &a
+}
+
+func processJsonForFile[T interface{}](endpoint string, data *os.File, transceiver driver.Transceiver) *T {
+	log.Log.Debug("[ProcessJson] 当前端点：" + endpoint)
+	var (
+		a    T
+		resp []byte
+		err  error
+	)
+	if data != nil {
+		log.Log.Debug("有数据上传请求")
+		resp, err = transceiver.SendFileRequest(data, endpoint)
+		if err != nil {
+			log.Log.Warning("[ProcessJson] 解析返回值错误")
+			return &a
 		}
 	} else {
 		log.Log.Debug("无数据请求")
