@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	adapter "github.com/ycvk/FreeClover/driver/openshamrock"
 	entity "github.com/ycvk/FreeClover/entity/openshamrock"
+	"io"
+	"os"
 )
 
 // OpenShamrock Shamrock特殊接口相关
@@ -26,7 +28,17 @@ func (o OpenShamrock) SwitchAccount(userId int64) entity.Common {
 // UploadFileToCache 该接口用于上传文件至缓存目录。
 func (o OpenShamrock) UploadFileToCache(filePath string) entity.UploadCache {
 	endpoint := "upload_file"
-	panic("Not implemented: " + endpoint)
+	// 打开文件并将文件转为byte[]
+	file, err := os.Open(filePath)
+	if err != nil {
+		return entity.UploadCache{}
+	}
+	defer file.Close()
+	bytes, err := io.ReadAll(file)
+	if err != nil {
+		return entity.UploadCache{}
+	}
+	return *processJson[entity.UploadCache](endpoint, bytes, o.transceiver, RequestTypeFile)
 }
 
 // DownloadFileToCache 该接口用于让设备下载链接的文件

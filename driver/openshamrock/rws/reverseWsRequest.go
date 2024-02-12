@@ -66,3 +66,8 @@ func (r *ReverseWsDriver) handler(w http.ResponseWriter, q *http.Request) {
 		r.MsgQueue.AddMessageInList(message)
 	}
 }
+
+func (r *ReverseWsDriver) SendFileRequest(data []byte, endpoint string) ([]byte, error) {
+	log.Log.Warning("[ReverseWebSocket] 不支持发送消息")
+	return nil, errors.New("[ReverseWebSocket] 不支持发送消息")
+}

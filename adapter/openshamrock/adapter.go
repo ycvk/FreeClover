@@ -9,6 +9,12 @@ import (
 	openshamrockmsg "github.com/ycvk/FreeClover/msg/openshamrock"
 )
 
+const (
+	RequestTypeJson = iota
+	RequestTypeForm
+	RequestTypeFile
+)
+
 // OpenShamrockAdapter OpenShamrock驱动结构体
 type OpenShamrockAdapter struct {
 	transceiver driver.Transceiver
@@ -37,7 +43,7 @@ func NewOpenShamrockDriver(url string, authToken string, transceiver driver.Tran
 	}
 	return &OpenShamrockAdapter{Url: url, Api: apis, transceiver: transceiver, Message: openshamrockmsg.Message{}}
 }
-func processJson[T interface{}](endpoint string, data []byte, transceiver driver.Transceiver) *T {
+func processJson[T interface{}](endpoint string, data []byte, transceiver driver.Transceiver, reqType ...int) *T {
 	log.Log.Debug("[ProcessJson] 当前端点：" + endpoint)
 	var (
 		a    T
@@ -46,10 +52,18 @@ func processJson[T interface{}](endpoint string, data []byte, transceiver driver
 	)
 	if data != nil {
 		log.Log.Debug("有数据请求")
-		resp, err = transceiver.SendJsonRequest(data, endpoint)
-		if err != nil {
-			log.Log.Warning("[ProcessJson] 解析返回值错误")
-			return &a
+		if reqType != nil && reqType[0] == RequestTypeFile {
+			resp, err = transceiver.SendFileRequest(data, endpoint)
+			if err != nil {
+				log.Log.Warning("[ProcessJson] 解析返回值错误")
+				return &a
+			}
+		} else {
+			resp, err = transceiver.SendJsonRequest(data, endpoint)
+			if err != nil {
+				log.Log.Warning("[ProcessJson] 解析返回值错误")
+				return &a
+			}
 		}
 	} else {
 		log.Log.Debug("无数据请求")

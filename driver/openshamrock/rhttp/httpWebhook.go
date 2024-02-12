@@ -51,3 +51,8 @@ func (h *HttpWebHookDriver) SendJsonRequest(data []byte, endpoint string) ([]byt
 	log.Log.Warning("[WebHook] 不支持发送消息")
 	return nil, errors.New("[WebHook] 不支持发送消息")
 }
+
+func (h *HttpWebHookDriver) SendFileRequest(data []byte, endpoint string) ([]byte, error) {
+	log.Log.Warning("[WebHook] 不支持发送消息")
+	return nil, errors.New("[WebHook] 不支持发送消息")
+}

@@ -5,8 +5,11 @@ import (
 	http "github.com/bogdanfinn/fhttp"
 	"github.com/ycvk/FreeClover/log"
 	"io"
+	"mime/multipart"
 	"net/url"
+	"strconv"
 	"strings"
+	"time"
 )
 
 type HttpDriver struct {
@@ -71,6 +74,58 @@ func (h *HttpDriver) SendJsonRequest(data []byte, endpoint string) ([]byte, erro
 		}
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("Authorization", "Bearer "+h.authToken)
+		response, err = h.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		req, err := http.NewRequest("POST", h.url+"/"+endpoint, nil)
+		if err != nil {
+			return nil, err
+		}
+		req.Header.Add("Authorization", "Bearer "+h.authToken)
+		response, err = h.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	body, err := io.ReadAll(response.Body)
+	defer response.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+func (h *HttpDriver) SendFileRequest(data []byte, endpoint string) ([]byte, error) {
+	var response *http.Response
+	var err error
+	if data != nil {
+		log.Log.Debug("[HTTP] 发送了文件")
+		buffer := bytes.NewBuffer(data)
+		multiPartWriter := multipart.NewWriter(buffer)
+		// 创建一个新的表单文件字段
+		fileWriter, err := multiPartWriter.CreateFormFile("file", strconv.FormatInt(time.Now().UnixMilli(), 10))
+		if err != nil {
+			return nil, err
+		}
+		// 将文件内容拷贝到表单文件字段
+		_, err = io.Copy(fileWriter, buffer)
+		if err != nil {
+			return nil, err
+		}
+		// 关闭多部分写入器
+		multiPartWriter.Close()
+		// 创建一个新的请求
+		req, err := http.NewRequest("POST", h.url+"/"+endpoint, buffer)
+		if err != nil {
+			return nil, err
+		}
+		req.Header.Set("Content-Type", multiPartWriter.FormDataContentType())
+		req.Header.Set("Authorization", "Bearer "+h.authToken)
 		response, err = h.client.Do(req)
 		if err != nil {
 			return nil, err
