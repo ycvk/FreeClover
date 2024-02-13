@@ -35,8 +35,15 @@ type SendGroupMessage struct {
 	AutoEscape bool          `json:"auto_escape"`
 }
 type SendGroupForwardMessage struct {
-	GroupId int64         `json:"group_id"`
-	Message []MessageItem `json:"message"`
+	GroupId  int64                 `json:"group_id"`
+	Messages []GroupForwardMessage `json:"messages"`
+}
+type GroupForwardMessage struct {
+	Type string                  `json:"type"`
+	Data GroupForwardMessageData `json:"data"`
+}
+type GroupForwardMessageData struct {
+	Content []MessageItem `json:"content"`
 }
 type SendPrivateForwardMessage struct {
 	UserId  int64         `json:"user_id"`

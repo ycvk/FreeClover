@@ -23,6 +23,7 @@ type MessageType interface {
 	Gift(qq, id int64) entity.MessageItem
 	ForWard(id string) entity.MessageItem
 	ForwardNode(id int64) entity.MessageItem
+	ForwardMessageNode(messageItem ...entity.MessageItem) entity.GroupForwardMessage
 	XML() entity.MessageItem
 	JSON(data string) entity.MessageItem
 	TextToAudio() entity.MessageItem
