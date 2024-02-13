@@ -125,7 +125,7 @@ func (o Message) GetForwardMessage(id string) entity.ForwardMsg {
 }
 
 // SendGroupForwardMessage 该接口用于发送群聊合并转发。
-func (o Message) SendGroupForwardMessage(groupId int64, messages []entity.GroupForwardMessage) entity.Common {
+func (o Message) SendGroupForwardMessage(groupId int64, messages ...entity.GroupForwardMessage) entity.Common {
 	endpoint := "send_group_forward_msg"
 	values, err := json.Marshal(entity.SendGroupForwardMessage{
 		GroupId:  groupId,
