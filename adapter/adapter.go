@@ -43,8 +43,8 @@ type user interface { //用户相关
 }
 
 type message interface { //消息相关
-	SendPrivateMessage(userId int64, autoEscape bool, message []entity.MessageItem) entity.PrivateMsg                                               //该接口用于发送私聊消息。
-	SendGroupMessage(groupId int64, autoEscape bool, message []entity.MessageItem) entity.GroupMsg                                                  //该接口用于发送群聊消息。
+	SendPrivateMessage(userId int64, autoEscape bool, message ...entity.MessageItem) entity.PrivateMsg                                              //该接口用于发送私聊消息。
+	SendGroupMessage(groupId int64, autoEscape bool, message ...entity.MessageItem) entity.GroupMsg                                                 //该接口用于发送群聊消息。
 	SendMessage(messageType string, userId int64, groupId int64, discussId int64, autoEscape bool, message []entity.MessageItem) entity.SendMessage //该接口用于发送消息。
 	GetMessage(messageId int32) entity.Msg                                                                                                          //该接口用于获取消息。
 	GetHistoryMessage(messageType string, userId int64, groupId int64, count int32, messageSeq int32) entity.MessageHistory                         //该接口用于获取历史消息。
@@ -52,7 +52,7 @@ type message interface { //消息相关
 	DeleteLocalMessageCache(messageType string, userId int64, groupId int64) entity.Common                                                          //该接口用于清除本地消息缓存。
 	GetForwardMessage(id string) entity.ForwardMsg                                                                                                  //该接口用于获取合并转发内容。
 	SendGroupForwardMessage(groupId int64, message ...entity.GroupForwardMessage) entity.Common                                                     //该接口用于发送群聊合并转发。
-	SendPrivateForwardMessage(userId int64, message []entity.MessageItem) entity.Common                                                             //该接口用于发送私聊合并转发。
+	SendPrivateForwardMessage(userId int64, message ...entity.MessageItem) entity.Common                                                            //该接口用于发送私聊合并转发。
 }
 type resource interface { //资源相关
 	GetImage(file string) entity.FileInfo            //用于获取图片，只能获取已缓存的图片。

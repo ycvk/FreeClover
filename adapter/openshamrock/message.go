@@ -12,7 +12,7 @@ type Message struct {
 }
 
 // SendPrivateMessage 该接口用于发送私聊消息。
-func (o Message) SendPrivateMessage(userId int64, autoEscape bool, message []entity.MessageItem) entity.PrivateMsg {
+func (o Message) SendPrivateMessage(userId int64, autoEscape bool, message ...entity.MessageItem) entity.PrivateMsg {
 	endpoint := "send_private_msg"
 	values, err := json.Marshal(entity.SendPrivateMessage{
 		UserId:     userId,
@@ -26,7 +26,7 @@ func (o Message) SendPrivateMessage(userId int64, autoEscape bool, message []ent
 }
 
 // SendGroupMessage 该接口用于发送群聊消息。
-func (o Message) SendGroupMessage(groupId int64, autoEscape bool, message []entity.MessageItem) entity.GroupMsg {
+func (o Message) SendGroupMessage(groupId int64, autoEscape bool, message ...entity.MessageItem) entity.GroupMsg {
 	endpoint := "send_group_msg"
 	values, err := json.Marshal(entity.SendGroupMessage{
 		GroupId:    groupId,
@@ -138,7 +138,7 @@ func (o Message) SendGroupForwardMessage(groupId int64, messages ...entity.Group
 }
 
 // SendPrivateForwardMessage 该接口用于发送私聊合并转发。
-func (o Message) SendPrivateForwardMessage(userId int64, message []entity.MessageItem) entity.Common {
+func (o Message) SendPrivateForwardMessage(userId int64, message ...entity.MessageItem) entity.Common {
 	endpoint := "send_private_forward_msg"
 	values, err := json.Marshal(entity.SendPrivateForwardMessage{
 		UserId:  userId,
