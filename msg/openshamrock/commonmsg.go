@@ -198,6 +198,15 @@ func (m Message) ForwardNode(id int64) entity.MessageItem {
 	}
 }
 
+func (m Message) ForwardMessageNode(messageItem ...entity.MessageItem) entity.GroupForwardMessage {
+	return entity.GroupForwardMessage{
+		Type: "node",
+		Data: entity.GroupForwardMessageData{
+			Content: messageItem,
+		},
+	}
+}
+
 // XML XML消息，未实现
 func (m Message) XML() entity.MessageItem {
 	panic("Not implemented")

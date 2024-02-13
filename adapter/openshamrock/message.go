@@ -125,12 +125,11 @@ func (o Message) GetForwardMessage(id string) entity.ForwardMsg {
 }
 
 // SendGroupForwardMessage 该接口用于发送群聊合并转发。
-func (o Message) SendGroupForwardMessage(groupId int64, autoEscape bool, message []entity.MessageItem) entity.Common {
+func (o Message) SendGroupForwardMessage(groupId int64, messages []entity.GroupForwardMessage) entity.Common {
 	endpoint := "send_group_forward_msg"
-	values, err := json.Marshal(entity.SendGroupMessage{
-		GroupId:    groupId,
-		Message:    message,
-		AutoEscape: autoEscape,
+	values, err := json.Marshal(entity.SendGroupForwardMessage{
+		GroupId:  groupId,
+		Messages: messages,
 	})
 	if err != nil {
 		return entity.Common{}
