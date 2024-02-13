@@ -51,7 +51,7 @@ type message interface { //消息相关
 	GetGroupHistoryMessage(groupId int64, count int32, messageSeq int32) entity.GroupHistoryMsg                                                     //该接口用于获取群聊历史消息。
 	DeleteLocalMessageCache(messageType string, userId int64, groupId int64) entity.Common                                                          //该接口用于清除本地消息缓存。
 	GetForwardMessage(id string) entity.ForwardMsg                                                                                                  //该接口用于获取合并转发内容。
-	SendGroupForwardMessage(groupId int64, message []entity.MessageItem) entity.Common                                                              //该接口用于发送群聊合并转发。
+	SendGroupForwardMessage(groupId int64, message []entity.GroupForwardMessage) entity.Common                                                      //该接口用于发送群聊合并转发。
 	SendPrivateForwardMessage(userId int64, message []entity.MessageItem) entity.Common                                                             //该接口用于发送私聊合并转发。
 }
 type resource interface { //资源相关
