@@ -51,7 +51,7 @@ func (r *ReverseWsDriver) SendJsonRequest(data []byte, endpoint string) ([]byte,
 }
 func (r *ReverseWsDriver) handler(w http.ResponseWriter, q *http.Request) {
 	auth := q.Header.Get("Authorization")
-	if auth != "bearer "+r.authToken {
+	if auth != "Bearer "+r.authToken {
 		log.Log.Warning("[ReverseWebSocket] 身份验证失败")
 		return
 	}
